@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Responsive Web Page with Registration</title>
+  <style>
+    :root {
+      --max-width: 1000px;
+      --radius: 12px;
+      --shadow: 0 8px 24px rgba(0,0,0,0.08);
+      font-family: system-ui,-apple-system,BlinkMacSystemFont,sans-serif;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body {
+      background: #f5f7fa;
+      color: #1f2d3a;
+      line-height: 1.5;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;y
+      align-items: center;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: .25rem;
+    }
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+    .card {
+      background: #fff;
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+    .about img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px;
+      margin-bottom: .75rem;
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      margin-bottom: .25rem;
+      font-size: .9rem;
+    }
+    input {
+      width: 100%;
+      padding: .65rem .8rem;
+      border: 1px solid #cdd7e0;
+      border-radius: 8px;
+      font-size: 1rem;
+      outline: none;
+      transition: border .2s;
+    }
+    input:focus {
+      border-color: #4f94ff;
+    }
+    .btn {
+      display: inline-block;
+      padding: .75rem 1.25rem;
+      background: #3b82f6;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      width: 100%;
+    }
+    .error {
+      color: #c53030;
+      font-size: .85rem;
+      margin-top: .25rem;
+    }
+    .success {
+      background: #daf5d8;
+      border: 1px solid #4caf50;
+      color: #1f5d2f;
+      padding: .75rem 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      .card {
+        transition: transform .2s, box-shadow .2s;
+      }
+      .card:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 16px 32px rgba(0,0,0,0.12);
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Welcome to My Responsive Page</h1>
+    <p>Includes a responsive image and adjusts layout using CSS media queries.</p>
+  </header>
+
+  <div class="container">
+    <section class="card about" aria-label="About section">
+      <h2>About</h2>
+      <img src="kluh.png" alt="Illustrative image" />
+      <p>This page includes a responsive image and adjusts layout using CSS media queries.</p>
+    </section>
+
+    <section class="card registration" aria-label="Registration form">
+      <h2>Create an Account</h2>
+      <div id="message" role="alert" aria-live="polite" style="display:none;"></div>
+      <form id="regForm" novalidate>
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" required aria-required="true" placeholder="Your name" />
+          <div class="error" data-for="name"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" required aria-required="true" placeholder="you@example.com" />
+          <div class="error" data-for="email"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password (min 6 chars)</label>
+          <input type="password" id="password" name="password" required aria-required="true" minlength="6" placeholder="Password" />
+          <div class="error" data-for="password"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="confirm">Confirm Password</label>
+          <input type="password" id="confirm" name="confirm" required aria-required="true" placeholder="Repeat password" />
+          <div class="error" data-for="confirm"></div>
+        </div>
+
+        <button type="submit" class="btn">Register</button>
+      </form>
+      <p style="margin-top:.75rem;font-size:.85rem;">
+        Already have an account? <a href="#" style="color:#3b82f6;text-decoration:none;">Log in</a>
+      </p>
+    </section>
+  </div>
+
+  <script>
+    const form = document.getElementById('regForm');
+    const messageDiv = document.getElementById('message');
+
+    function showError(field, msg) {
+      const container = document.querySelector('.error[data-for="' + field + '"]');
+      if (container) container.textContent = msg;
+    }
+    function clearErrors() {
+      document.querySelectorAll('.error').forEach(e => e.textContent = '');
+    }
+    function showMessage(text, success=true) {
+      messageDiv.style.display = 'block';
+      messageDiv.textContent = text;
+      messageDiv.className = success ? 'success' : 'error';
+    }
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      clearErrors();
+      messageDiv.style.display = 'none';
+
+      const name = form.name.value.trim();
+      const email = form.email.value.trim();
+      const password = form.password.value;
+      const confirm = form.confirm.value;
+
+      let valid = true;
+
+      if (!name) {
+        showError('name', 'Name is required.');
+        valid = false;
+      }
+
+      if (!email) {
+        showError('email', 'Email is required.');
+        valid = false;
+      } else if (!/^\S+@\S+\.\S+$/.test(email)) {
+        showError('email', 'Enter a valid email.');
+        valid = false;
+      }
+
+      if (!password) {
+        showError('password', 'Password is required.');
+        valid = false;
+      } else if (password.length < 6) {
+        showError('password', 'Password must be at least 6 characters.');
+        valid = false;
+      }
+
+      if (confirm !== password) {
+        showError('confirm', 'Passwords do not match.');
+        valid = false;
+      }
+
+      if (!valid) return;
+
+      // Simulate successful registration (replace with real backend call)
+      showMessage('Registration successful! You can now log in.', true);
+      form.reset();
+    });
+  </script>
+</body>
+</html>

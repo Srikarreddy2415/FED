@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FEDF Multimedia Page</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background: linear-gradient(to right, pink, #c2e9fb);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background-color: bisque;
+      color: white;
+      padding: 30px 20px;
+      text-align: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    nav {
+      background-color: #e6f0ff;
+      padding: 15px;
+      text-align: center;
+      border-bottom: 2px solid #cce0ff;
+    }
+
+    nav a {
+      color: #004d99;
+      text-decoration: none;
+      margin: 0 20px;
+      font-weight: 600;
+      font-size: 18px;
+      transition: color 0.3s ease;
+    }
+
+    nav a:hover {
+      color: lightskyblue;
+    }
+
+    section {
+      padding: 40px 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    section h2 {
+      margin-bottom: 10px;
+      color: #004d99;
+    }
+
+    .media-box {
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+      margin: 30px 0;
+    }
+
+    video, audio {
+      width: 100%;
+      max-width: 100%;
+      border-radius: 10px;
+      outline: none;
+    }
+
+    footer {
+      background-color: beige;
+      color: white;
+      text-align: center;
+      padding: 20px;
+      margin-top: 40px;
+    }
+
+    @media (max-width: 600px) {
+      nav a {
+        display: block;
+        margin: 10px 0;
+      }
+
+      section {
+        padding: 20px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎥 Welcome to FEDF Multimedia Page</h1>
+  </header>
+
+  <nav>
+    <a href="home.html">← Back to Homepage</a>
+  </nav>
+
+  <section>
+    <div class="media-box">
+      <h2>📺 Watch Our FEDF Video</h2>
+      <p>Click the play button to enjoy the video:</p>
+      <video controls autoplay>
+        <source src="Hemu.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+
+    <div class="media-box">
+      <h2>🎵 Listen to Our Audio</h2>
+      <p>Click the play button to enjoy the audio:</p>
+      <audio controls>
+        <source src="Song (3).mp3" type="audio/mpeg">
+        Your browser does not support the audio tag.
+      </audio>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 FEDF Multimedia | All rights reserved.</p>
+  </footer>
+</body>
+</html>

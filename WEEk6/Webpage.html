@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>India Weather Info</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #e9f0f4; /* Subtle gray-blue background */
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+
+    header {
+      background-color: #ffd6a5; /* Soft pastel orange */
+      padding: 20px 0;
+      text-align: center;
+      color: #333;
+      font-size: 2em;
+      font-weight: bold;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      background-color: #ffffff; /* Soft white card */
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .search-box {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .search-box input {
+      padding: 10px;
+      font-size: 1em;
+      width: 70%;
+      max-width: 300px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      outline: none;
+    }
+
+    .search-box button {
+      padding: 10px 18px;
+      font-size: 1em;
+      margin-left: 8px;
+      background-color: #ffb703;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .search-box button:hover {
+      background-color: #ffa600;
+    }
+
+    .weather-info {
+      text-align: center;
+    }
+
+    .weather-info h3 {
+      font-size: 1.6em;
+      margin-bottom: 10px;
+      color: #444;
+    }
+
+    .weather-info p {
+      font-size: 1.1em;
+      margin: 8px 0;
+      color: #555;
+    }
+
+    .error {
+      color: #d00000;
+      font-size: 1.1em;
+      text-align: center;
+      margin-top: 10px;
+    }
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      padding: 20px 0;
+      background-color: #f1f1f1;
+      color: #777;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    🌦️ India Weather Info
+  </header>
+
+  <div class="container">
+    <div class="search-box">
+      <input type="text" id="city" placeholder="Enter Indian city (e.g., Mumbai)" />
+      <button onclick="getWeather()">Get Weather</button>
+    </div>
+
+    <div id="weatherDetails" class="weather-info"></div>
+    <div id="errorMessage" class="error"></div>
+  </div>
+
+  <footer>
+    &copy; 2025 Weather App | Powered by OpenWeatherMap
+  </footer>
+
+  <script>
+    async function getWeather() {
+      const city = document.getElementById('city').value.trim();
+      const errorMessage = document.getElementById('errorMessage');
+      const weatherDetails = document.getElementById('weatherDetails');
+
+      if (!city) {
+        errorMessage.textContent = 'Please enter a city name!';
+        weatherDetails.innerHTML = '';
+        return;
+      }
+
+      errorMessage.textContent = '';
+      weatherDetails.innerHTML = '';
+
+      const apiKey = 'YOUR_API_KEY'; // 🔁 Replace with your actual API key
+      const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city},IN&appid=${apiKey}&units=metric`;
+
+      try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) throw new Error('City not found or API error.');
+
+        const data = await response.json();
+
+        const weather = data.weather[0].description;
+        const temperature = data.main.temp;
+        const humidity = data.main.humidity;
+        const windSpeed = data.wind.speed;
+
+        weatherDetails.innerHTML = `
+          <h3>Weather in ${city}</h3>
+          <p><strong>Condition:</strong> ${weather}</p>
+          <p><strong>Temperature:</strong> ${temperature} °C</p>
+          <p><strong>Humidity:</strong> ${humidity}%</p>
+          <p><strong>Wind Speed:</strong> ${windSpeed} m/s</p>
+        `;
+      } catch (error) {
+        errorMessage.textContent = error.message;
+      }
+    }
+  </script>
+
+</body>
+</html>

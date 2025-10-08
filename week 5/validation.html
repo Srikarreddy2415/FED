@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Registration Form</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #ff6a00, #ee0979, #2575fc);
+      background-size: 300% 300%;
+      animation: gradientShift 12s ease infinite;
+    }
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    .form-container {
+      background: rgba(255, 255, 255, 0.15);
+      padding: 35px 30px;
+      border-radius: 20px;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+      width: 380px;
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255,255,255,0.2);
+      animation: fadeIn 1s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(25px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .form-container h2 {
+      margin-bottom: 25px;
+      text-align: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.8em;
+      letter-spacing: 1px;
+    }
+    label {
+      display: block;
+      margin: 12px 0 6px;
+      font-weight: 600;
+      color: #f1f1f1;
+      font-size: 0.95em;
+    }
+    input {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 12px;
+      font-size: 14px;
+      transition: 0.3s;
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+      backdrop-filter: blur(4px);
+    }
+    input::placeholder {
+      color: rgba(255,255,255,0.7);
+    }
+    input:focus {
+      background: rgba(255,255,255,0.3);
+      box-shadow: 0 0 10px rgba(255,255,255,0.5);
+      outline: none;
+    }
+    .error {
+      color: #ffb3b3;
+      font-size: 0.85em;
+      margin-top: 3px;
+      font-weight: 500;
+    }
+    button {
+      width: 100%;
+      padding: 14px;
+      background: linear-gradient(90deg, #ff6a00, #ee0979, #2575fc);
+      background-size: 200% 200%;
+      border: none;
+      border-radius: 14px;
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+      margin-top: 22px;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, background-position 0.5s ease;
+    }
+    button:hover {
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+      background-position: 100% 0;
+    }
+    button:active {
+      transform: scale(0.98);
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Register Now</h2>
+    <form id="regForm">
+      <label>Full Name:</label>
+      <input type="text" id="fullname" placeholder="Enter your full name">
+      <div id="nameErr" class="error"></div>
+
+      <label>Email:</label>
+      <input type="email" id="email" placeholder="Enter your email">
+      <div id="emailErr" class="error"></div>
+
+      <label>Password:</label>
+      <input type="password" id="password" placeholder="Enter your password">
+      <div id="passErr" class="error"></div>
+
+      <label>Phone Number:</label>
+      <input type="text" id="phone" placeholder="Enter your phone number">
+      <div id="phoneErr" class="error"></div>
+
+      <button type="submit">✨ Submit</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById("regForm").onsubmit = function(e) {
+      e.preventDefault();
+
+      let name = document.getElementById("fullname").value.trim();
+      let email = document.getElementById("email").value.trim();
+      let pass = document.getElementById("password").value;
+      let phone = document.getElementById("phone").value.trim();
+
+      let valid = true;
+
+      // Clear errors
+      document.querySelectorAll(".error").forEach(el => el.textContent = "");
+
+      if (!name) {
+        document.getElementById("nameErr").textContent = "⚠ Full Name is required";
+        valid = false;
+      }
+      if (!email.match(/^[^@\s]+@[^@\s]+\.[^@\s]+$/)) {
+        document.getElementById("emailErr").textContent = "⚠ Enter a valid email";
+        valid = false;
+      }
+      if (pass.length < 8) {
+        document.getElementById("passErr").textContent = "⚠ Password must be at least 8 characters";
+        valid = false;
+      }
+      if (!phone.match(/^[0-9]{10}$/)) {
+        document.getElementById("phoneErr").textContent = "⚠ Enter a 10-digit phone number";
+        valid = false;
+      }
+
+      if (valid) {
+        alert("🎉 Registration Successful!");
+      }
+    }
+  </script>
+</body>
+</html>

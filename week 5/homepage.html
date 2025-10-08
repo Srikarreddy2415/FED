@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Online Product Store</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: cornsilk;
+    }
+
+    header {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      background-color: beige;
+      color: brown;
+      flex-wrap: wrap;
+    }
+
+    header img {
+      max-height: 80px;   /* Limit height */
+      height: auto;       /* Keep aspect ratio */
+      width: auto;        /* Let width adjust automatically */
+      margin-right: 20px;
+    }
+
+    header h1 {
+      font-size: 28px;
+      margin: 0;
+    }
+
+    nav {
+      background-color: lightslategray;
+      display: flex;
+      justify-content: center;
+      padding: 12px 0;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 12px 24px;
+      margin: 5px 10px;
+      border-radius: 5px;
+      transition: background 0.3s;
+    }
+
+    nav a:hover {
+      background-color: lightblue;
+    }
+
+    @media (max-width: 600px) {
+      header,
+      nav {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      nav a {
+        display: block;
+        margin: 8px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <!-- Make sure kluh.png is inside the images folder -->
+    <img src="images/kluh.png" alt="Logo" />
+    <h1>Welcome to Online Product Store</h1>
+  </header>
+
+  <nav>
+    <a href="home.html" target="empty">Home</a>
+    <a href="registration.html" target="empty">Registration</a>
+    <a href="loginpage.html" target="empty">Login</a>
+    <a href="contact.html" target="empty">Contact</a>
+  </nav>
+
+</body>
+</html>
